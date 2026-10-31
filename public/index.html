@@ -454,7 +454,7 @@ const pickGameQuestions = (lv) => {
 
 // Imágenes reales: el servidor las descarga de Wikipedia/Wikimedia una vez y las guarda en /cache
 const imgP=n=>'/img?t=p&n='+encodeURIComponent(n),imgC=n=>'/img?t=c&n='+encodeURIComponent(n);
-function imgErr(el){const f=el.dataset.f;if(f){el.dataset.f='';el.src=f}else el.remove()}
+function imgErr(el){if(el.dataset.r!=='1'&&/\/img\?/.test(el.src)){el.dataset.r='1';setTimeout(()=>{el.src=el.src.split('&r=')[0]+'&r='+Date.now()},2500);return}const f=el.dataset.f;if(f){el.dataset.f='';el.src=f}else el.remove()}
 function imgOk(el){const p=el.parentNode;if(p.classList.contains('ph'))p.style.color='transparent';else{const s=p.querySelector('svg');if(s)s.style.display='none'}}
 const im=(src,fb,alt)=>'<img src="'+esc(src)+'"'+(fb?' data-f="'+esc(fb)+'"':'')+' alt="'+esc(alt)+'" onload="imgOk(this)" onerror="imgErr(this)">';
 const KEY='epj1';let S=null,pend=null;let snd=(()=>{try{return localStorage.getItem('epjs')!=='0'}catch(e){return true}})();
