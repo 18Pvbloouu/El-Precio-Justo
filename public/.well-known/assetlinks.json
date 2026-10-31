@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.onrender.el_precio_justo.twa",
+        "sha256_cert_fingerprints": ["E0:29:90:41:E2:96:99:CC:8A:A2:6D:74:A4:45:65:66:AE:3C:40:E1:40:E1:21:CC:CF:08:69:AF:85:DB:8B:67"]
+      }
+    }]
