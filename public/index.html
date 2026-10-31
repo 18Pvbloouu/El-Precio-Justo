@@ -505,7 +505,7 @@ function menu(){
   const sv=load();
   A.style.setProperty('--c','#ffd93d');
   A.innerHTML=`<div class="wrap"><h1>EL PRECIO<br>JUSTO</h1>
-  <div class="row">${[1].map(i=>`<div class="card pl" style="animation-delay:${i*.15}s"><span class="tag">TU NOMBRE</span><input type="text" id="n${i}" maxlength="14" placeholder="" value="${esc(sv&&sv.names&&!/^Jugador \d$|^Esperando/.test(sv.names[sv.me||0])?sv.names[sv.me||0]:'')}"></div>`).join('')}</div>
+  <div class="row">${[1].map(i=>`<div class="card pl" style="animation-delay:${i*.15}s"><span class="tag">TU NOMBRE</span><input type="text" id="n${i}" name="apodo-juego-epj" maxlength="14" placeholder="" enterkeyhint="go" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" value="${esc(sv&&sv.names&&!/^Jugador \d$|^Esperando/.test(sv.names[sv.me||0])?sv.names[sv.me||0]:'')}"></div>`).join('')}</div>
   <div style="text-align:center;margin:26px 0"><button class="big" id="onl">▶ JUGAR ONLINE</button>${sv&&sv.on&&sv.r&&!sv.done?'<p><button id="cont">CONTINUAR PARTIDA ('+LV[sv.lv].n+' '+sv.r+'/28)</button></p>':''}<p><button id="clr" style="--c:#999;font-size:9px">🧹 BORRAR CACHÉ DE IMÁGENES</button><br><span id="cinfo" class="sm"></span></p></div></div><div class="pitch"></div>${foot}`;
 
   if($('#cont'))$('#cont').onclick=()=>{S=sv;if(S.on)net();game()};
@@ -569,7 +569,7 @@ function game(){
     } else if(hidden){
       pan+='<p class="sm">Espera tu turno…</p>';
     } else {
-      pan+=`<input type="password" inputmode="decimal" id="in${i}" placeholder="Tu respuesta en M€" autocomplete="off"><button id="ok${i}" style="margin-top:8px">CONFIRMAR</button><p class="sm" id="er${i}"></p>`;
+      pan+=`<input type="text" inputmode="decimal" id="in${i}" name="respuesta-epj" placeholder="Tu respuesta en M€" enterkeyhint="done" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other"><button id="ok${i}" style="margin-top:8px">CONFIRMAR</button><p class="sm" id="er${i}"></p>`;
     }
     pan+='</div>';
   }
@@ -694,7 +694,7 @@ function merge(R){
   if(ch&&S.r){save(); const v=$('#in'+me), t=v?v.value:''; S.done?final():game(); const w=$('#in'+me); if(w)w.value=t;}
 }
 function online(nm){
-  A.innerHTML=`<div class="wrap"><h1 style="font-size:18px">JUGAR ONLINE</h1><div class="card mid"><button id="cr">CREAR SALA</button><p class="sm">o únete con el código de tu rival:</p><input type="text" id="cd" maxlength="4" placeholder="CÓDIGO" style="text-transform:uppercase"><button id="jn" style="margin-top:8px">UNIRSE</button></div><p style="text-align:center"><button id="bk" style="--c:#999">← VOLVER</button></p></div><div class="pitch"></div>${foot}`;
+  A.innerHTML=`<div class="wrap"><h1 style="font-size:18px">JUGAR ONLINE</h1><div class="card mid"><button id="cr">CREAR SALA</button><p class="sm">o únete con el código de tu rival:</p><input type="text" id="cd" name="codigo-sala-epj" maxlength="4" placeholder="CÓDIGO" enterkeyhint="go" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other" style="text-transform:uppercase"><button id="jn" style="margin-top:8px">UNIRSE</button></div><p style="text-align:center"><button id="bk" style="--c:#999">← VOLVER</button></p></div><div class="pitch"></div>${foot}`;
   $('#bk').onclick=menu; $('#cr').onclick=()=>difficulty([nm,'Esperando…'],1);
   $('#jn').onclick=()=>{
     const c=$('#cd').value.trim().toUpperCase(); if(c.length<4)return;
