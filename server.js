@@ -89,6 +89,9 @@ http.createServer((q,s)=>{
     let b='';q.on('data',d=>{b+=d;if(b.length>2e4)q.destroy()});
     q.on('end',()=>{try{const m=JSON.parse(b),r=room(c);r.last[m.data.me]=b;r.cl.forEach(x=>x.write('data: '+b+'\n\n'))}catch(e){}s.end('ok')});return;
   }
+  // Archivos para instalar como app / generar APK (lista cerrada, sin rutas libres)
+  const ST={'/manifest.webmanifest':['manifest.webmanifest','application/manifest+json'],'/sw.js':['sw.js','text/javascript'],'/icon-192.png':['icon-192.png','image/png'],'/icon-512.png':['icon-512.png','image/png'],'/icon-maskable-512.png':['icon-maskable-512.png','image/png'],'/.well-known/assetlinks.json':['.well-known/assetlinks.json','application/json']};
+  if(ST[u.pathname])return fs.readFile(path.join(__dirname,'public',ST[u.pathname][0]),(e,d)=>{if(e){s.writeHead(404);return s.end('no existe')}s.writeHead(200,{'Content-Type':ST[u.pathname][1],'Cache-Control':u.pathname==='/sw.js'?'no-cache':'public, max-age=86400'});s.end(d)});
   fs.readFile(path.join(__dirname,'public','index.html'),(e,d)=>{
     if(e){s.writeHead(500);return s.end('Falta public/index.html')}
     s.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});s.end(d)});
